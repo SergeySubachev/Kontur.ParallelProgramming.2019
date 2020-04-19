@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -22,8 +23,13 @@ namespace NMAP
             {
                 if (prevTask.Result == IPStatus.Success)
                 {
+                    var portTasks = new List<Task>();
                     foreach (var port in ports)
-                        CheckPort(ipAddr, port);
+                    {
+                        var portTask = Task.Run(() => CheckPort(ipAddr, port));
+                        portTasks.Add(portTask);
+                    }
+                    Task.WaitAll(portTasks.ToArray()); //по идее лучше бы WhenAll
                 }
             }, TaskContinuationOptions.OnlyOnRanToCompletion)).ToList());
         }
