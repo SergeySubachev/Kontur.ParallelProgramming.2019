@@ -51,6 +51,7 @@
     <Compile Include="PortStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ParallelScanner.cs" />
     <Compile Include="SequentialScanner.cs" />
     <Compile Include="TcpClientExtensions.cs" />
   </ItemGroup>
